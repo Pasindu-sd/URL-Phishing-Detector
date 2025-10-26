@@ -15,4 +15,3 @@ facebook-security-login.com ← Should be suspicious
 my-small-business.com ← Should be safe
 
 ```
----
