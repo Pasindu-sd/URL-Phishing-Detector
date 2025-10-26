@@ -1,4 +1,8 @@
 # Phishing-Detector
+
+
+that checks if a website is fake or dangerous - like those fake login pages that steal passwords.
+
 That checks if a website is fake or dangerous - like those fake login pages that steal passwords.
 The program is working! Now you have a basic phishing detector.
 
@@ -24,3 +28,4 @@ Analyzing: facebook-security-login.com
  SUSPICIOUS FOUND:
  Might be faking {brand} website
 ```
+

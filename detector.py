@@ -24,10 +24,12 @@ def check_url(url):
       for problem in problem:
          print(f" {problem}")     
    else:
-      print("\n URL looks safe (basic check)")
+      print("\nURL looks safe (basic check)")
       
    return problem
 
+
+# Main function
 if __name__ == "__main__":
    website = input("Enter URL to check: ")
    check_url(website)
