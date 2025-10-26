@@ -15,3 +15,12 @@ facebook-security-login.com ← Should be suspicious
 my-small-business.com ← Should be safe
 
 ```
+
+### Output:
+```
+Enter URL to check: facebook-security-login.com
+Analyzing: facebook-security-login.com
+
+ SUSPICIOUS FOUND:
+ Might be faking {brand} website
+```
