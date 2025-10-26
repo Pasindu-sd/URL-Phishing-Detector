@@ -28,6 +28,8 @@ def check_url(url):
       
    return problem
 
+
+# Main function
 if __name__ == "__main__":
    website = input("Enter URL to check: ")
    check_url(website)
