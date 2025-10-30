@@ -18,14 +18,28 @@ facebook-security-login.com ← Should be suspicious
 
 my-small-business.com ← Should be safe
 
+http://login-facebook-security-update.com/login 
+
 ```
 
-### Output:
+### Output (Example 1):
 ```
-Enter URL to check: facebook-security-login.com
-Analyzing: facebook-security-login.com
+Enter URL: http://login-facebook-security-update.com/login       
+Analyzing: http://login-facebook-security-update.com/login       
 
- SUSPICIOUS FOUND:
- Might be faking {brand} website
+SUSPICIOUS FOUND:
+ - Suspicious brand pattern: facebook
+ - DNS resolution failed
+ - No SSL certificate on port 443 or couldn't fetch it
+```
+
+### Output (Example 2):
+```
+Enter URL: https://www.google.com
+Analyzing: https://www.google.com
+Resolved IP: 142.250.77.36
+SSL cert found, notAfter: Dec 24 14:35:28 2025 GMT
+
+Looks okay (basic checks)
 ```
 
