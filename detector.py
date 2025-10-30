@@ -1,4 +1,3 @@
-# simple_phish_check.py
 import re
 import socket
 import ssl
