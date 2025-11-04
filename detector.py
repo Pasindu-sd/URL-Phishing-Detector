@@ -1,6 +1,9 @@
 import re
 import socket
 import ssl
+import datetime
+import requests
+import argparse
 
 def get_domain(url):
     url = url.lower().strip()
@@ -17,7 +20,9 @@ def has_ssl_cert(domain, timeout=5):
             s.settimeout(timeout)
             s.connect((domain, 443))
             cert = s.getpeercert()
-        return cert.get("notAfter")
+        not_after = cert.get("notAfter")
+        if not_after:
+            return not_after
     except Exception:
         return None
 
@@ -32,37 +37,65 @@ def simple_check(url):
         issues.append("Many hyphens")
     if re.search(r"\d+\.\d+\.\d+\.\d+", url):
         issues.append("Contains raw IP address")
-    fake_brands = ['paypal','facebook','google','microsoft','bank']
+    fake_brands = ['paypal', 'facebook', 'google', 'microsoft', 'bank', 'apple', 'amazon']
     for b in fake_brands:
         if b in url.lower() and '-' in url:
             issues.append(f"Suspicious brand pattern: {b}")
 
     # domain + DNS
     domain = get_domain(url)
+    print(f"Extracted Domain: {domain}")
+    
     try:
         ip = socket.gethostbyname(domain)
         print("Resolved IP:", ip)
         if ip.startswith(("10.","172.","192.168.")):
             issues.append("Resolves to private IP")
+    except socket.gaierror:
+        issues.append("DNS resolution failed (invalid or dead domain)")
     except Exception as e:
-        issues.append("DNS resolution failed")
+        issues.append(f"DNS error: {e}")
 
     # SSL check
     cert_expiry = has_ssl_cert(domain)
     if cert_expiry:
-        print("SSL cert found, notAfter:", cert_expiry)
+        print("SSL certificate found")
+        print("   Expires on:", cert_expiry)
+        try:
+            expiry_dt = datetime.datetime.strptime(cert_expiry, "%b %d %H:%M:%S %Y %Z")
+            days_left = (expiry_dt - datetime.datetime.utcnow()).days
+            if days_left < 0:
+                issues.append("SSL certificate expired")
+            elif days_left < 30:
+                issues.append("SSL certificate expires soon (<30 days)")
+        except Exception:
+            pass
     else:
-        issues.append("No SSL certificate on port 443 or couldn't fetch it")
+        issues.append("No SSL certificate or failed to fetch it")
 
     if issues:
-        print("\nSUSPICIOUS FOUND:")
+        print("\nPossible Problems Found:")
         for it in issues:
             print(" -", it)
     else:
-        print("\nLooks okay (basic checks)")
+        print("\nNo suspicious signs detected (basic checks only)")
 
     return issues
 
-if __name__ == "__main__":
-    url = input("Enter URL: ").strip()
+
+def main():
+    parser = argparse.ArgumentParser(description="Simple URL Phishing Detector by Pasindu")
+    parser.add_argument("url", nargs="?", help="Enter a URL to analyze (e.g., https://example.com)")
+    args = parser.parse_args()
+
+    # Allow both input() and CLI argument
+    if not args.url:
+        url = input("Enter URL: ").strip()
+    else:
+        url = args.url.strip()
+
     simple_check(url)
+
+
+if __name__ == "__main__":
+    main()
