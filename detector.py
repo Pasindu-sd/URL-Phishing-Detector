@@ -72,7 +72,20 @@ def simple_check(url):
             pass
     else:
         issues.append("No SSL certificate or failed to fetch it")
-
+    
+    #HTTP response check
+    try:
+        r = requests.head(url, timeout=5, allow_redirects=True)
+        if r.status_code >= 400:
+            issues.append(f"⚠️ HTTP returned error status: {r.status_code}")
+        elif 'login' in r.url or 'verify' in r.url:
+            issues.append("⚠️ Redirects to suspicious login/verify page")
+    except requests.exceptions.SSLError:
+        issues.append("❌ SSL/TLS error while connecting")
+    except requests.exceptions.RequestException:
+        issues.append("⚠️ Could not connect to website")
+        
+    # Final report
     if issues:
         print("\nPossible Problems Found:")
         for it in issues:
