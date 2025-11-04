@@ -24,13 +24,7 @@ http://login-facebook-security-update.com/login
 
 ### Output (Example 1):
 ```
-Enter URL: http://login-facebook-security-update.com/login       
-Analyzing: http://login-facebook-security-update.com/login       
 
-SUSPICIOUS FOUND:
- - Suspicious brand pattern: facebook
- - DNS resolution failed
- - No SSL certificate on port 443 or couldn't fetch it
 ```
 
 ### Output (Example 2):
