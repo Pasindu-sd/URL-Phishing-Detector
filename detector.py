@@ -4,6 +4,7 @@ import ssl
 import datetime
 import requests
 import argparse
+from datetime import datetime, timezone
 
 def get_domain(url):
     url = url.lower().strip()
@@ -63,7 +64,7 @@ def simple_check(url):
         print("   Expires on:", cert_expiry)
         try:
             expiry_dt = datetime.datetime.strptime(cert_expiry, "%b %d %H:%M:%S %Y %Z")
-            days_left = (expiry_dt - datetime.datetime.utcnow()).days
+            days_left = (expiry_dt - datetime.now(timezone.utc)).days
             if days_left < 0:
                 issues.append("SSL certificate expired")
             elif days_left < 30:
