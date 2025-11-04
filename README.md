@@ -24,7 +24,15 @@ http://login-facebook-security-update.com/login
 
 ### Output (Example 1):
 ```
+Enter URL: http://login-facebook-security-update.com/login  
+Analyzing: http://login-facebook-security-update.com/login
+Extracted Domain: login-facebook-security-update.com
 
+Possible Problems Found:
+ - Suspicious brand pattern: facebook
+ - DNS resolution failed (invalid or dead domain)
+ - No SSL certificate or failed to fetch it
+ - Could not connect to website
 ```
 
 ### Output (Example 2):
