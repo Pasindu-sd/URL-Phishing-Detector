@@ -37,11 +37,6 @@ Possible Problems Found:
 
 ### Output (Example 2):
 ```
-Enter URL: https://www.google.com
-Analyzing: https://www.google.com
-Resolved IP: 142.250.77.36
-SSL cert found, notAfter: Dec 24 14:35:28 2025 GMT
 
-Looks okay (basic checks)
 ```
 
