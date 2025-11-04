@@ -37,6 +37,13 @@ Possible Problems Found:
 
 ### Output (Example 2):
 ```
+Enter URL: https://www.google.com
+Analyzing: https://www.google.com
+Extracted Domain: www.google.com
+Resolved IP: 142.250.207.164
+SSL certificate found
+   Expires on: Jan  5 08:39:41 2026 GMT
 
+No suspicious signs detected (basic checks only)
 ```
 
