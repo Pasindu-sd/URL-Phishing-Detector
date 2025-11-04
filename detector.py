@@ -63,7 +63,7 @@ def simple_check(url):
         print("SSL certificate found")
         print("   Expires on:", cert_expiry)
         try:
-            expiry_dt = datetime.datetime.strptime(cert_expiry, "%b %d %H:%M:%S %Y %Z")
+            expiry_dt = datetime.strptime(cert_expiry, "%b %d %H:%M:%S %Y %Z").replace(tzinfo=timezone.utc)
             days_left = (expiry_dt - datetime.now(timezone.utc)).days
             if days_left < 0:
                 issues.append("SSL certificate expired")
